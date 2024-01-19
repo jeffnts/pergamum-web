@@ -1,5 +1,6 @@
 
 import { parseCookies } from 'nookies'
+import { logout } from 'services/auth'
 
 const { 'pergamum.token': token } = parseCookies() 
 const apiUrl = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL
@@ -17,6 +18,7 @@ export const api = {
         const result = await response.json()
 
         if(response.status !== 201){
+            logout()
             throw result
         }
 
@@ -37,6 +39,7 @@ export const api = {
         const result = await response.text()
 
         if(response.status !== 201){
+            logout()
             throw result
         }
 

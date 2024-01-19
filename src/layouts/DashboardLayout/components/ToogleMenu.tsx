@@ -24,18 +24,16 @@ export function ToogleMenu() {
           isOpen ? '-translate-x-0' : '-translate-x-full'
         } fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform  bg-white dark:bg-gray-800`}
       >
-        <div className="flex items-center justify-center mt-8">
-          <div className="flex items-center">
-            <Image
-              width={30}
-              height={30}
-              alt={`Ícone do menu da aplicação`}
-              src={libraryIcon}
-            />
-            <span className="mx-4 text-lg font-medium text-gray-700 dark:text-gray-200">
-              Pergamum
-            </span>
-          </div>
+        <div className="flex items-center justify-start mt-8 px-6">
+          <Image
+            width={30}
+            height={30}
+            alt={`Ícone do menu da aplicação`}
+            src={libraryIcon}
+          />
+          <span className="mx-4 text-lg font-medium text-gray-700 dark:text-gray-200">
+            Pergamum
+          </span>
         </div>
         <nav className="mt-10">
           {menuItems.map((item) => (
