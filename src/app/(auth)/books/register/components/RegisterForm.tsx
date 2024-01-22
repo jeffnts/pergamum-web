@@ -2,18 +2,19 @@
 import 'react-quill/dist/quill.snow.css'
 import { useState } from 'react'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import ReactQuill from 'react-quill'
 import { Button } from '@/components/ui/button'
 import bookIcon from 'assets/icons/book.svg'
 import { REQUIRED_FIELD } from 'consts/errors'
 import { createBook } from 'actions/books'
 import dayjs from 'dayjs'
 import { useToast } from '@/components/ui/use-toast'
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 
 export function RegisterForm() {
   const [resume, setResume] = useState('')
