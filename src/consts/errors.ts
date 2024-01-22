@@ -1,5 +1,6 @@
 export const REQUIRED_FIELD = 'Campo Obrigatório!'
 export const INVALID_EMAIL = 'E-mail inválido.'
+export const INVALID_DATE = 'Data inválida.'
 export const INVALID_EMAIL_OR_INVALID_PAWWSORD = 'E-mail ou senha inválidos.'
 export const PASSWORD_NOT_MATCH = 'A confirmação da senha tem que ser igual à senha'
 export const FIREBASE_EMAIL_ERROR_CODE = 'auth/email-already-in-use'

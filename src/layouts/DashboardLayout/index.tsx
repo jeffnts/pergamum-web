@@ -50,7 +50,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
-        <main className="p-4 flex-1 overflow-y-auto">{children}</main>
+        <main className="p-4 flex-1 overflow-y-auto md:p-6">{children}</main>
       </div>
     </div>
   )

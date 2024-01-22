@@ -24,7 +24,7 @@ export const authOptions: AuthOptions = {
 
                     cookies().set('pergamum.token', token)
                     
-                    const userRequest = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
+                    const userRequest = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
                         headers: {
                             'Content-Type': 'application/json',
                             Authorization: `Bearer ${token}`
