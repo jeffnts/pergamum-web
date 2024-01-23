@@ -7,7 +7,6 @@ import {
   TableBody,
   Table,
 } from '@/components/ui/table'
-import { Button } from '@/components/ui/button'
 import { StatusSelect } from './components'
 import { api } from 'libs/api/server'
 import userIcon from 'assets/icons/user.svg'
@@ -72,13 +71,6 @@ export default async function UsersPage() {
           ))}
         </TableBody>
       </Table>
-      <div className="flex justify-center mt-4">
-        <Button className="mx-2">Previous</Button>
-        <Button className="mx-2">1</Button>
-        <Button className="mx-2">2</Button>
-        <Button className="mx-2">3</Button>
-        <Button className="mx-2">Next</Button>
-      </div>
     </div>
   )
 }

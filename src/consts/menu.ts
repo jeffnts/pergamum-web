@@ -4,6 +4,7 @@ import videosIcon from 'assets/icons/videos.svg'
 import bookShelfIcon from 'assets/icons/book-shelf.svg'
 import adminIcon from 'assets/icons/admin.svg'
 import bookManagement from 'assets/icons/books-management.svg'
+import bookPlus from 'assets/icons/book-plus.svg'
 import usersIcon from 'assets/icons/users.svg'
 
 
@@ -39,9 +40,15 @@ export const menuItems = [
         visible: true,
         items: [
             {
+                name: 'Livros Cadastrados',
+                href: '/books/list',
+                icon: bookManagement,
+                visible: true
+            },
+            {
                 name: 'Cadastrar Livro',
                 href: '/books/register',
-                icon: bookManagement,
+                icon: bookPlus,
                 visible: true
             },
             {
