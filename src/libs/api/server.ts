@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 
 const apiUrl = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL
 
-const getHeaders = (body?: any, token) => {
+const getHeaders = (token: string | undefined, body?: FormData | Object) => {
     const contentType = body instanceof FormData? null: { 'Content-Type': 'application/json',}
    return {
     ...contentType,
@@ -17,7 +17,7 @@ export const api = {
         const token = cookies().get('pergamum.token')?.value
        
         const response  = await fetch(`${apiUrl}${url}`, {
-            headers: getHeaders(null, token),
+            headers: getHeaders(token),
             method: 'GET'
         })
 
@@ -35,7 +35,7 @@ export const api = {
         const token = cookies().get('pergamum.token')?.value
 
        const response = await  fetch(`${apiUrl}${url}`, {
-            headers: getHeaders(body, token),
+            headers: getHeaders(token, body),
             body: body instanceof FormData? body: JSON.stringify(body),
             method: 'POST'
         })
@@ -53,7 +53,7 @@ export const api = {
         const token = cookies().get('pergamum.token')?.value
 
        const response = await  fetch(`${apiUrl}${url}`, {
-            headers: getHeaders(body, token),
+            headers: getHeaders(token, body),
             body: body instanceof FormData? body: JSON.stringify(body),
             method: 'PUT'
         })
@@ -71,7 +71,7 @@ export const api = {
         const token = cookies().get('pergamum.token')?.value
 
        const response = await  fetch(`${apiUrl}${url}`, {
-            headers: getHeaders(body, token),
+            headers: getHeaders(token, body),
             body: body instanceof FormData? body: JSON.stringify(body),
             method: 'PATCH'
         })
@@ -89,7 +89,7 @@ export const api = {
         const token = cookies().get('pergamum.token')?.value
 
        const response = await  fetch(`${apiUrl}${url}`, {
-            headers: getHeaders(null, token),
+            headers: getHeaders(token),
             method: 'DELETE'
         })
         
