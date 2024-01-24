@@ -1,6 +1,10 @@
-import Link from 'next/link'
 import Image from 'next/image'
-import dayjs from 'dayjs'
+import { Button } from '@/components/ui/button'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
 import {
   TableHead,
   TableRow,
@@ -9,34 +13,35 @@ import {
   TableBody,
   Table,
 } from '@/components/ui/table'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { UpdateRentForm } from './components'
+import { ReturnRentForm } from './components'
+import dayjs from 'dayjs'
 import { api } from 'libs/api/server'
 import bookIcon from 'assets/icons/book.svg'
 
-type Book = {
-  id: string
-  title: string
-  description: string
-  imageUrl: string
-  author: string
-}
-
-type Rents = {
+export interface Rent {
   id: string
   createdAt: string
   updatedAt: string
+  deletedAt: any
+  user: User
   book: Book
 }
 
-export default async function RentsPage() {
-  const rents: Rents[] = await api.get('/rents')
+export interface User {
+  name: string
+}
+
+export interface Book {
+  id: string
+  title: string
+  description: string
+  author: string
+  imageUrl: string
+}
+
+export default async function AdminRentsPage() {
+  const rents: Rent[] = await api.get('/rents/list-all')
 
   return (
     <div className="min-w-full bg-slate-50">
@@ -45,10 +50,9 @@ export default async function RentsPage() {
           <TableRow>
             <TableHead>Capa</TableHead>
             <TableHead>Livro</TableHead>
-            <TableHead>Data do empréstimo</TableHead>
-            <TableHead>Data da renovação</TableHead>
-            <TableHead>Data da devolução</TableHead>
-            <TableHead></TableHead>
+            <TableHead>Aluno</TableHead>
+            <TableHead>Data do Empréstimo</TableHead>
+            <TableHead>Data da Devolução</TableHead>
             <TableHead></TableHead>
           </TableRow>
         </TableHeader>
@@ -84,44 +88,37 @@ export default async function RentsPage() {
 
               <TableCell className="font-medium">{rent.book.title}</TableCell>
 
-              <TableCell>
+              <TableCell className="font-medium">{rent.user.name}</TableCell>
+
+              <TableCell className="font-medium">
                 {dayjs(rent.createdAt).format('DD-MM-YYYY')}
               </TableCell>
 
-              <TableCell>
-                {dayjs(rent.createdAt).isSame(dayjs(rent.updatedAt))
-                  ? 'Sem renovação'
-                  : dayjs(rent.updatedAt).format('DD-MM-YYYY')}
+              <TableCell className="font-medium">
+                {rent.deletedAt
+                  ? dayjs(rent.deletedAt).format('DD-MM-YYYY')
+                  : 'Não devolvido ainda'}
               </TableCell>
-              <TableCell>
-                {dayjs(rent.updatedAt).add(7, 'days').format('DD-MM-YYYY')}
-              </TableCell>
+
               <TableCell>
                 <Popover>
                   <PopoverTrigger asChild>
-                    <Button>Renovar o Empréstimo</Button>
+                    <Button>Realizar Devolução</Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-80">
                     <div className="grid gap-4">
                       <div className="space-y-2">
                         <h4 className="font-medium leading-none">
-                          Renovar Empréstimo
+                          Ralizar Devolução
                         </h4>
                         <p className="text-sm text-muted-foreground">
-                          Tem certeza que deseja renovar o empréstimo deste
-                          livro?
+                          Tem certeza que deseja devolver este livro?
                         </p>
                       </div>
-                      <UpdateRentForm id={rent.id} />
+                      <ReturnRentForm id={rent.id} />
                     </div>
                   </PopoverContent>
                 </Popover>
-              </TableCell>
-
-              <TableCell>
-                <Button asChild>
-                  <Link href={`/books/${rent.book.id}`}>Ver Livro</Link>
-                </Button>
               </TableCell>
             </TableRow>
           ))}

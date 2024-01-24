@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useSession } from 'next-auth/react'
 import {
   Accordion,
   AccordionContent,
@@ -14,6 +15,10 @@ import { menuItems } from 'consts/menu'
 
 export function SideNav() {
   const [isOpen, setIsOpen] = useState(true)
+  const { data }: { data: any } = useSession()
+
+  const role = data?.user?.role
+
   return (
     <aside
       className={` bg-white dark:bg-gray-800 max-sm:hidden transition-all duration-500 ease-in-out ${
@@ -53,6 +58,7 @@ export function SideNav() {
       <nav className="mt-10">
         {menuItems
           .filter(({ visible }) => visible)
+          .filter(({ roles }) => roles.includes(role))
           .map((item) => {
             if (item.items) {
               return (

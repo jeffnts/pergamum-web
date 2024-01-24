@@ -2,19 +2,20 @@ import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth'
 import type { Metadata } from 'next'
 import { authOptions } from 'libs/nextAuth'
-import { api } from 'libs/api/server'
 
 export const metadata: Metadata = {
   title: 'Pergamum',
 }
 
-export default async function RootLayout({
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const user = await getServerSession(authOptions)
+  const roles = ['ADMIN']
 
-  if (user) redirect('/')
+  const data: any = await getServerSession(authOptions)
+
+  if (!roles.includes(data?.user.role)) redirect('/')
   return <>{children}</>
 }

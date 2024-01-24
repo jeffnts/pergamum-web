@@ -48,3 +48,15 @@ export async function updateRentBook(id: string){
         }
     }
 }
+
+export async function returnRentBook(id: string){
+    try{
+        const result = await api.delete(`/rents/${id}`)
+        revalidatePath(`/rents/list-all`)
+        return result
+    }catch(error: any){
+        return {
+            error: JSON.parse(error)?.message
+        }
+    }
+}
