@@ -1,6 +1,6 @@
 import { DashboardLayout } from 'layouts'
 
-export default function HomeLayout({
+export default async function HomeLayout({
   children,
 }: {
   children: React.ReactNode
