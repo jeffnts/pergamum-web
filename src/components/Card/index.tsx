@@ -40,7 +40,9 @@ export default function CardComponent(props: Props) {
             >
               {value.description}
             </p>
-            {index < values.length - 1 && <Separator className="my-4" />}
+            {index < values.length - 1 && (
+              <Separator key={index} className="my-4" />
+            )}
           </>
         ))}
       </CardHeader>
