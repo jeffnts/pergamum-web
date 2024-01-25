@@ -14,6 +14,7 @@ import {
   Table,
 } from '@/components/ui/table'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { Card } from 'components'
 import { ReturnRentForm } from './components'
 import dayjs from 'dayjs'
 import { api } from 'libs/api/server'
@@ -49,7 +50,7 @@ export default async function AdminRentsPage() {
 
   return (
     <div className="min-w-full bg-slate-50">
-      <Table>
+      <Table className="max-sm:hidden">
         <TableHeader>
           <TableRow>
             <TableHead>Capa</TableHead>
@@ -67,7 +68,7 @@ export default async function AdminRentsPage() {
                 <Dialog>
                   <DialogTrigger asChild>
                     <Image
-                      alt="John Doe"
+                      alt={`Imagem da capa do livro ${rent.book.title}`}
                       className="rounded-full cursor-pointer"
                       height="50"
                       src={rent.book.imageUrl ?? bookIcon}
@@ -128,6 +129,55 @@ export default async function AdminRentsPage() {
           ))}
         </TableBody>
       </Table>
+
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 md:p-6 md:hidden">
+        {rents.map((rent) => (
+          <Card
+            key={rent.id}
+            image={rent.book.imageUrl}
+            values={[
+              {
+                title: 'Livro',
+                description: rent.book.title,
+              },
+              {
+                title: 'Aluno',
+                description: rent.user.name,
+              },
+              {
+                title: 'Data do Empréstimo',
+                description: rent.createdAt,
+              },
+              {
+                title: 'Data da Devolução',
+                description: rent.deletedAt
+                  ? dayjs(rent.deletedAt).format('DD-MM-YYYY')
+                  : 'Não devolvido ainda',
+              },
+            ]}
+            buttons={
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button className="w-full">Realizar Devolução</Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-80">
+                  <div className="grid gap-4">
+                    <div className="space-y-2">
+                      <h4 className="font-medium leading-none">
+                        Ralizar Devolução
+                      </h4>
+                      <p className="text-sm text-muted-foreground">
+                        Tem certeza que deseja devolver este livro?
+                      </p>
+                    </div>
+                    <ReturnRentForm id={rent.id} />
+                  </div>
+                </PopoverContent>
+              </Popover>
+            }
+          />
+        ))}
+      </section>
     </div>
   )
 }
