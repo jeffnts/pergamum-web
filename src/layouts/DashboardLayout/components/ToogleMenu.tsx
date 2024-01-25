@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useSession } from 'next-auth/react'
 import {
   Accordion,
   AccordionContent,
@@ -14,6 +15,10 @@ import { menuItems } from 'consts/menu'
 
 export function ToogleMenu() {
   const [isOpen, setIsOpen] = useState(false)
+
+  const { data }: { data: any } = useSession()
+
+  const role = data?.user?.role
 
   return (
     <div className="md:hidden">
@@ -44,6 +49,7 @@ export function ToogleMenu() {
         <nav className="mt-10">
           {menuItems
             .filter(({ visible }) => visible)
+            .filter(({ roles }) => roles.includes(role))
             .map((item) => {
               if (item.items) {
                 return (

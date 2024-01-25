@@ -27,7 +27,7 @@ export default async function Home() {
                   src={item.icon}
                   className="h-8 w-8 text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-gray-50 mt-8"
                 />
-                {/* <DollarSignIcon className="h-8 w-8 text-gray-500 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-gray-50" /> */}
+
                 <h3 className="text-lg font-semibold group-hover:text-gray-900 dark:group-hover:text-gray-50">
                   {item.name}
                 </h3>
