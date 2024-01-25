@@ -11,6 +11,11 @@ import {
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import userIcom from 'assets/icons/user.svg'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Pergamum - Perfil do Usuário',
+}
 
 export default async function ProfilePage() {
   return (

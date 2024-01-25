@@ -9,13 +9,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
+import { Skeleton } from '@/components/ui/skeleton'
 import libraryIcon from 'assets/icons/library.svg'
 import menuHamburguer from 'assets/icons/menu-hamburguer.svg'
 import { menuItems } from 'consts/menu'
 
 export function SideNav() {
   const [isOpen, setIsOpen] = useState(true)
-  const { data }: { data: any } = useSession()
+  const { data, status }: any = useSession()
 
   const role = data?.user?.role
 
@@ -55,6 +56,19 @@ export function SideNav() {
           onClick={() => setIsOpen((isOpen) => !isOpen)}
         />
       </div>
+      {status === 'loading' && (
+        <div className="space-y-2 pt-16">
+          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[250px]" />
+        </div>
+      )}
       <nav className="mt-10">
         {menuItems
           .filter(({ visible }) => visible)

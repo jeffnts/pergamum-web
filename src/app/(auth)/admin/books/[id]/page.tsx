@@ -1,14 +1,13 @@
 import Image from 'next/image'
 import { Label } from '@/components/ui/label'
-import { Button } from '@/components/ui/button'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
 import { api } from 'libs/api/server'
 import dayjs from 'dayjs'
 import bookIcon from 'assets/icons/book.svg'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Pergamum - Admin - Livro',
+}
 
 type Book = {
   id: string

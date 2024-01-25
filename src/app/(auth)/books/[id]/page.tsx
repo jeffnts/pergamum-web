@@ -10,6 +10,11 @@ import { RentFormBook } from './components'
 import { api } from 'libs/api/server'
 import dayjs from 'dayjs'
 import bookIcon from 'assets/icons/book.svg'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Pergamum - Livro',
+}
 
 type Book = {
   id: string

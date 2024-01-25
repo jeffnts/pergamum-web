@@ -1,5 +1,10 @@
 import { api } from 'libs/api/server'
 import { RegisterBookForm } from 'components'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Pergamum - Admin -  Editar Livro',
+}
 
 export default async function EditBook({ params }: { params: { id: string } }) {
   const book = await api.get(`/books/${params.id}`)

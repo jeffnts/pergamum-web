@@ -19,16 +19,17 @@ type Props = {
   userId: string
   userStatusId: string
   status: Status[]
+  className?: string
 }
 
 export function StatusSelect(props: Props) {
-  const { userId, userStatusId, status } = props
+  const { userId, userStatusId, status, className } = props
   return (
     <Select
       onValueChange={(statusId) => updateStatus(userId, statusId)}
       defaultValue={userStatusId}
     >
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className={className || 'w-[180px]'}>
         <SelectValue placeholder="Selecione o Status" />
       </SelectTrigger>
       <SelectContent>

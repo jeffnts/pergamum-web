@@ -1,6 +1,11 @@
 import Image from 'next/image'
 import { LoginForm } from './components'
 import libraryIcon from 'assets/images/library.png'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Pergamum - Login',
+}
 
 export default function LoginPage() {
   return (

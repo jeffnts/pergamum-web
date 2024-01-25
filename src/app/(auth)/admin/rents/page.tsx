@@ -18,7 +18,11 @@ import { ReturnRentForm } from './components'
 import dayjs from 'dayjs'
 import { api } from 'libs/api/server'
 import bookIcon from 'assets/icons/book.svg'
+import type { Metadata } from 'next'
 
+export const metadata: Metadata = {
+  title: 'Pergamum - Admin - Gerência de Empréstimos',
+}
 export interface Rent {
   id: string
   createdAt: string

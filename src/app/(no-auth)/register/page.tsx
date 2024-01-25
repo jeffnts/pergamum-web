@@ -1,6 +1,11 @@
 import Image from 'next/image'
 import { RegisterForm } from './components'
 import libraryIcon from 'assets/images/library.png'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Pergamum - Criar Conta',
+}
 
 export default function RegisterPage() {
   return (

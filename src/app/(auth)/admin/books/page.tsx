@@ -22,6 +22,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { Card } from 'components'
 import { api } from 'libs/api/server'
 import bookIcon from 'assets/icons/book.svg'
 import { removeBook } from 'actions/books'
@@ -35,11 +36,17 @@ type Book = {
   author: string
 }
 
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Pergamum - Admin - Livros Cadastrados',
+}
+
 export default async function ListBooksPage() {
   const books: Book[] = await api.get('/books')
   return (
     <div className="min-w-full bg-slate-50">
-      <Table>
+      <Table className="max-sm:hidden">
         <TableHeader>
           <TableRow>
             <TableHead>Capa</TableHead>
@@ -98,7 +105,7 @@ export default async function ListBooksPage() {
 
               <TableCell>
                 <div className="flex gap-4">
-                  <Button asChild>
+                  <Button variant="outline" asChild>
                     <Link href={`/admin/books/${book.id}`}>
                       <Eye className="mr-2 h-4 w-4" />
                       Ver
@@ -144,6 +151,69 @@ export default async function ListBooksPage() {
           ))}
         </TableBody>
       </Table>
+
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 md:p-6 md:hidden">
+        {books.map((book) => (
+          <Card
+            key={book.id}
+            image={book.imageUrl}
+            values={[
+              {
+                title: 'Livro',
+                description: book.title,
+              },
+              {
+                title: 'Quantidade',
+                description: book.amount.toString(),
+              },
+            ]}
+            buttons={
+              <>
+                <Button variant="outline" className="w-full" asChild>
+                  <Link href={`/admin/books/${book.id}`}>
+                    <Eye className="mr-2 h-4 w-4" />
+                    Ver
+                  </Link>
+                </Button>
+
+                <Button className="w-full" asChild>
+                  <Link href={`/admin/books/${book.id}/edit`}>
+                    <EditIcon className="mr-2 h-4 w-4" />
+                    Editar
+                  </Link>
+                </Button>
+
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button className="w-full" variant="destructive">
+                      <Trash2Icon className="mr-2 h-4 w-4" />
+                      Remover
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80">
+                    <div className="grid gap-4">
+                      <div className="space-y-2">
+                        <h4 className="font-medium leading-none">
+                          Remover Livro
+                        </h4>
+                        <p className="text-sm text-muted-foreground">
+                          Tem certeza que deseja remover este livro?
+                        </p>
+                      </div>
+                      <form action={removeBook} className="grid gap-2">
+                        <input type="hidden" name="id" value={book.id} />
+                        <Button type="submit" variant="destructive">
+                          Sim. Remover
+                        </Button>
+                      </form>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </>
+            }
+          />
+        ))}
+      </section>
     </div>
   )
 }

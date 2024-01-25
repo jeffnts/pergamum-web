@@ -1,4 +1,9 @@
 import { RegisterBookForm } from 'components'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Pergamum - Admin - Cadastrar Livro',
+}
 
 export default function RegisterBookPage() {
   return (

@@ -2,6 +2,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { api } from 'libs/api/server'
 import bookIcon from 'assets/icons/book.svg'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Pergamum - Livros',
+}
 
 type Book = {
   id: string

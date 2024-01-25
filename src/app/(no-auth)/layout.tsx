@@ -1,6 +1,6 @@
+import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth'
-import type { Metadata } from 'next'
 import { authOptions } from 'libs/nextAuth'
 import { api } from 'libs/api/server'
 
@@ -13,8 +13,14 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const result = await api
+    .get('/users/me')
+    .then(() => 'ok')
+    .catch(() => 'error')
+
   const user = await getServerSession(authOptions)
 
-  if (user) redirect('/')
+  if (result === 'ok' && user) redirect('/')
+
   return <>{children}</>
 }

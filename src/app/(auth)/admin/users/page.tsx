@@ -7,9 +7,15 @@ import {
   TableBody,
   Table,
 } from '@/components/ui/table'
+import { Card } from 'components'
 import { StatusSelect } from './components'
 import { api } from 'libs/api/server'
 import userIcon from 'assets/icons/user.svg'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Pergamum - Admin - Gerência de Usuários',
+}
 
 type User = {
   id: string
@@ -33,7 +39,7 @@ export default async function UsersPage() {
 
   return (
     <div className="w-full overflow-auto">
-      <Table>
+      <Table className="max-sm:hidden">
         <TableHeader>
           <TableRow>
             <TableHead>Avatar</TableHead>
@@ -71,6 +77,36 @@ export default async function UsersPage() {
           ))}
         </TableBody>
       </Table>
+
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 md:p-6 md:hidden">
+        {users.map((user) => (
+          <Card
+            key={user.id}
+            image={userIcon}
+            values={[
+              {
+                title: 'Nome',
+                description: user.name,
+              },
+              {
+                title: 'Email',
+                description: user.email,
+              },
+            ]}
+            buttons={
+              <div className="w-full flex flex-col gap-4">
+                <h2 className="text-lg font-semibold">Status</h2>
+                <StatusSelect
+                  className="w-full"
+                  userId={user.id}
+                  userStatusId={user.status.id}
+                  status={status}
+                />
+              </div>
+            }
+          />
+        ))}
+      </section>
     </div>
   )
 }
